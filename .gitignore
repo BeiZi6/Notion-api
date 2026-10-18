@@ -56,3 +56,4 @@ config.yaml.bak
 first_run.log
 server.stdout.log
 accounts/.sessions.json
+notion-manager-linux

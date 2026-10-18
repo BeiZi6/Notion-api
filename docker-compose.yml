@@ -1,0 +1,18 @@
+services:
+  notion-manager:
+    build: .
+    image: notion-manager:local
+    container_name: notion-manager
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro
+      - ./accounts:/app/accounts
+    networks:
+      - sub2api
+
+networks:
+  sub2api:
+    external: true
+    name: deploy_sub2api-network

@@ -1,0 +1,8 @@
+.git
+accounts
+config.yaml
+*.log
+*.exe
+notion-manager
+notion-manager-linux
+web/node_modules
