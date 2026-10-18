@@ -114,6 +114,8 @@ var anthropicModelAliases = map[string]string{
 	"claude-haiku-3-5":  "haiku-3.5",
 }
 
+var claudeModelRe = regexp.MustCompile(`^claude-(opus|sonnet|haiku)-(\d+)(?:-(\d{1,2}))?(?:-\d{8})?$`)
+
 // ResolveModel maps OpenAI/Anthropic model name → Notion internal model name
 func ResolveModel(model string) string {
 	snap := SnapshotModelMap()
@@ -135,6 +137,17 @@ func ResolveModel(model string) string {
 		}
 		if alias, ok := anthropicModelAliases[stripped]; ok {
 			if id, ok2 := snap[alias]; ok2 {
+				return id
+			}
+		}
+	}
+	// Generic Anthropic names: "claude-opus-5-5[-date]" → "opus-5.5", else "opus-5"
+	if m := claudeModelRe.FindStringSubmatch(strings.ToLower(model)); m != nil {
+		for _, name := range []string{m[1] + "-" + m[2] + "." + m[3], m[1] + "-" + m[2]} {
+			if m[3] == "" && strings.Contains(name, ".") {
+				continue
+			}
+			if id, ok := snap[name]; ok {
 				return id
 			}
 		}

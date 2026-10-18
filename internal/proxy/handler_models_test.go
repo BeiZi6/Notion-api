@@ -114,3 +114,15 @@ func TestHandlePublicModels_MethodNotAllowed(t *testing.T) {
 		t.Fatalf("expected Allow=GET, got %q", allow)
 	}
 }
+
+func TestResolveModelGenericClaudeNames(t *testing.T) {
+	ReplaceModelMap(map[string]string{"opus-5.5": "A", "opus-5": "B", "sonnet-5.5": "C", "opus-4.6": "D"})
+	for in, want := range map[string]string{
+		"claude-opus-5-5": "A", "claude-opus-5-5-20260101": "A", "claude-opus-5": "B",
+		"claude-sonnet-5-5": "C", "claude-opus-4-6": "D", "claude-opus-9-9": "D",
+	} {
+		if got := ResolveModel(in); got != want {
+			t.Errorf("%s → %s, want %s", in, got, want)
+		}
+	}
+}
