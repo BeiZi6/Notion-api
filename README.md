@@ -60,7 +60,7 @@ succeeds.
 
 ```bash
 # 1. Clone & run (config auto-generated on first start)
-git clone https://github.com/SleepingBag945/notion_manager.git
+git clone https://github.com/BeiZi6/Notion-api.git
 cd notion_manager
 go run ./cmd/notion-manager
 ```
@@ -90,7 +90,7 @@ export OPENAI_BASE_URL=http://localhost:8081/v1
 export OPENAI_API_KEY=<your-api-key>
 ```
 
-Or download a pre-built binary from [Releases](https://github.com/SleepingBag945/notion_manager/releases) — no Go toolchain required.
+Or download a pre-built binary from [Releases](https://github.com/BeiZi6/Notion-api/releases) — no Go toolchain required.
 
 ---
 
@@ -235,7 +235,7 @@ graph TD
 
 ### Requirements
 
-- Go `1.25+` (or grab a [Release](https://github.com/SleepingBag945/notion_manager/releases) pre-built binary if you want to skip the Go toolchain)
+- Go `1.26+` (or grab a [Release](https://github.com/BeiZi6/Notion-api/releases) pre-built binary if you want to skip the Go toolchain)
 - Chrome or Chromium for the extension workflow (skip if you only use the dashboard "Add account" or bulk register)
 - At least one usable Notion account
 
@@ -346,6 +346,10 @@ curl http://localhost:3000/v1/messages \
 - [Claude Code Integration](docs/claude-code-integration.md) — How Claude Code works through Notion AI, capabilities, and limitations
 - [Notion System Prompt](docs/notion_system_prompt.md) — Notion AI's full server-side system prompt (~27k tokens)
 
+## Docker
+
+Copy `config.yaml` and `accounts/` next to `docker-compose.yml`, put a linux build at `./notion-manager-linux` (`GOOS=linux go build -o notion-manager-linux ./cmd/notion-manager`), then `docker compose up -d --build`. New account JSONs dropped into `accounts/` are hot-loaded.
+
 ## License
 
-This project is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). Non-commercial use only.
+This project is licensed under the [MIT License](LICENSE).

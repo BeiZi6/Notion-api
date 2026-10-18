@@ -44,7 +44,7 @@
 
 ```bash
 # 1. 克隆并启动（首次启动自动生成配置）
-git clone https://github.com/SleepingBag945/notion_manager.git
+git clone https://github.com/BeiZi6/Notion-api.git
 cd notion_manager
 go run ./cmd/notion-manager
 ```
@@ -74,7 +74,7 @@ export OPENAI_BASE_URL=http://localhost:8081/v1
 export OPENAI_API_KEY=<your-api-key>
 ```
 
-也可以直接从 [Releases](https://github.com/SleepingBag945/notion_manager/releases) 下载预编译二进制，无需 Go 工具链。
+也可以直接从 [Releases](https://github.com/BeiZi6/Notion-api/releases) 下载预编译二进制，无需 Go 工具链。
 
 ---
 
@@ -232,7 +232,7 @@ graph TD
 
 ### 前置要求
 
-- Go `1.25` 或更高版本（也可直接从 [Releases](https://github.com/SleepingBag945/notion_manager/releases) 下载预编译二进制，无需安装 Go 工具链）
+- Go `1.26` 或更高版本（也可直接从 [Releases](https://github.com/BeiZi6/Notion-api/releases) 下载预编译二进制，无需安装 Go 工具链）
 - Chrome / Chromium，用于加载扩展并提取账号（如果你只用 Dashboard 加号或批量注册，可跳过）
 - 至少一个可用的 Notion 账号
 
@@ -343,6 +343,10 @@ curl http://localhost:3000/v1/messages \
 - [Claude Code 集成](docs/claude-code-integration.md) — Claude Code 如何通过 Notion AI 工作、能力与限制
 - [Notion 系统提示词](docs/notion_system_prompt.md) — Notion AI 服务端注入的完整系统提示词（~27k tokens）
 
+## Docker
+
+把 `config.yaml` 和 `accounts/` 放在 `docker-compose.yml` 旁，交叉编译 `./notion-manager-linux`（`GOOS=linux go build -o notion-manager-linux ./cmd/notion-manager`），然后 `docker compose up -d --build`。往 `accounts/` 丢新的账号 JSON 会自动热加载。
+
 ## 许可证
 
-本项目采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可证，仅限非商业用途。
+本项目采用 [MIT 许可证](LICENSE)。
